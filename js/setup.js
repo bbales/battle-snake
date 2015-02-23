@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:50
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-23 13:38:27
+* @Last Modified time: 2015-02-23 14:41:30
 */
 
 var game = {
@@ -28,8 +28,13 @@ var game = {
     food : {
         max : 10,
         a : [],
-        colors : ["#DE3333","#FFE74C","#3ADE1A","#1FF1EB","#D42ABB"],
+        colors : ["rgba(255,252,99,1)",
+                  "rgba(255,216,99,1)",
+                  "rgba(255,176,99,1)",
+                  "rgba(255,135,99,1)",
+                  "rgba(255,95,99,1)"],
     },
+    explosions : [],
     shadow : {
         dir : true,
         val : 0,

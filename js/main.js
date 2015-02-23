@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:45
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-23 13:51:26
+* @Last Modified time: 2015-02-23 17:17:48
 */
 
 
@@ -59,32 +59,7 @@
         }
         game.canvas.clearRect(0,0,game.width,game.height);
 
-        // Generate food
-        if(game.food.a.length < game.food.max && Math.round(Math.random()*55) == Math.round(Math.random()*55)){
-            game.food.a.push([game.quantize(Math.random()*game.width),game.quantize(Math.random()*game.height),Math.round(Math.random()*4)]);
-        }
-        // Draw food
-        if(game.shadow.dir){
-            game.shadow.val += 0.07;
-            if(game.shadow.val > 1) game.shadow.dir = false;
-        }else{
-            game.shadow.val -= 0.07;
-            if(game.shadow.val < 0) game.shadow.dir = true;
-        }
-
-        for(var i in game.food.a){
-            game.canvas.shadowColor = game.food.colors[game.food.a[i][2]];
-            game.canvas.shadowBlur = game.shadow.val * 18;
-            game.canvas.fillStyle = game.food.colors[game.food.a[i][2]];
-            // game.canvas.fillRect(game.food.a[i][0],game.food.a[i][1],block,block);
-            game.canvas.beginPath();
-            game.canvas.arc(game.food.a[i][0]+block/2,game.food.a[i][1]+block/2, block/2, 0, 2 * Math.PI, false);
-            game.canvas.fill();
-        }
-
-        game.canvas.shadowColor = '#999';
-        game.canvas.shadowBlur = 0;
-        game.canvas.fill();
+        
 
         // Draw old
         for(i in game.p2.train){
@@ -241,19 +216,48 @@
         }
 
         // Check for food
-        for(i in game.food.a){
+        for(var i in game.food.a){
             if(game.food.a[i][0] == game.p2.x && game.food.a[i][1] == game.p2.y){
                 game.p2.len += (game.food.a[i][2]+3)*2;
+                game.addExplosion(game.food.colors[game.food.a[i][2]],50+Math.round(Math.random()*60),game.food.a[i][0],game.food.a[i][1],(game.food.a[i][2]+3)*2);
                 game.food.a.splice(i,1);
                 break;
             }
 
             if(game.food.a[i][0] == game.p1.x && game.food.a[i][1] == game.p1.y){
                 game.p1.len += (game.food.a[i][2]+3)*2;
+                game.addExplosion(game.food.colors[game.food.a[i][2]],50+Math.round(Math.random()*60),game.food.a[i][0],game.food.a[i][1],(game.food.a[i][2]+3)*2);
                 game.food.a.splice(i,1);
                 break;
             }
         }
+        game.drawExplosions();
+
+        // Generate food
+        if(game.food.a.length < game.food.max && Math.round(Math.random()*20) == Math.round(Math.random()*55)){
+            game.food.a.push([game.quantize(Math.random()*game.width),game.quantize(Math.random()*game.height),Math.round(Math.random()*4)]);
+        }
+        // Draw food
+        if(game.shadow.dir){
+            game.shadow.val += 0.07;
+            if(game.shadow.val > 1) game.shadow.dir = false;
+        }else{
+            game.shadow.val -= 0.07;
+            if(game.shadow.val < 0) game.shadow.dir = true;
+        }
+
+        for(i in game.food.a){
+            game.canvas.shadowColor = game.food.colors[game.food.a[i][2]];
+            game.canvas.shadowBlur = game.shadow.val * 18;
+            game.canvas.fillStyle = game.food.colors[game.food.a[i][2]];
+            game.canvas.beginPath();
+            game.canvas.arc(game.food.a[i][0]+block/2,game.food.a[i][1]+block/2, block/2, 0, 2 * Math.PI, false);
+            game.canvas.fill();
+        }
+
+        game.canvas.shadowColor = '#999';
+        game.canvas.shadowBlur = 0;
+        game.canvas.fill();
 
         // Push new
         if(game.p2.train.length >= game.p2.len) game.p2.train.pop();
