@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:50
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-23 00:57:48
+* @Last Modified time: 2015-02-23 13:38:27
 */
 
 var game = {
@@ -10,18 +10,20 @@ var game = {
     flags : {
         gameover : false,
         paused : false,
+        tie : false,
     },
 
     keys : {
-        w : true,
+        w : false,
         s : false,
         a : false,
         d : false,
-        up : true,
+        up : false,
         down : false,
         left : false,
         right : false,
     },
+    lastkeys : undefined,
     canvas : null,
     food : {
         max : 10,
@@ -34,6 +36,7 @@ var game = {
     },
 
     p1 : {
+        dir : 1,
         x : 200,
         y : 200,
         len : 3,

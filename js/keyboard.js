@@ -2,19 +2,25 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:41
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-23 01:10:00
+* @Last Modified time: 2015-02-23 13:08:30
 */
 
 (function(){
     'use strict';
 
     function getKeyDown(e){
-        // Only one key in each set at a time
-        if((game.keys.w || game.keys.s) && (e.which == 87 || e.which == 83)) return;
-        if((game.keys.a || game.keys.d) && (e.which == 65 || e.which == 68)) return;
+        // Pause
+        if(e.which == 80){
+            return game.pause(!game.flags.paused);
+        }
 
-        if((game.keys.up || game.keys.down) && (e.which == 38 || e.which == 40)) return;
-        if((game.keys.right || game.keys.left) && (e.which == 37 || e.which == 39)) return;
+
+        // Only one key in each set at a time
+        // if((game.keys.w || game.keys.s) && (e.which == 87 || e.which == 83)) return;
+        // if((game.keys.a || game.keys.d) && (e.which == 65 || e.which == 68)) return;
+
+        // if((game.keys.up || game.keys.down) && (e.which == 38 || e.which == 40)) return;
+        // if((game.keys.right || game.keys.left) && (e.which == 37 || e.which == 39)) return;
 
         if([87,83,65,68].indexOf(e.which) != -1){
             game.keys.w = game.keys.s = game.keys.a = game.keys.d = false;
@@ -53,11 +59,5 @@
     }
 
     window.addEventListener("keydown",getKeyDown,false);
-    
-    window.addEventListener("resize",function(){
-        document.getElementById("battlesnake").setAttribute("width",document.getElementById("battlesnake").offsetWidth);
-        document.getElementById("battlesnake").setAttribute("height",document.getElementById("battlesnake").offsetHeight);
-    },false);
 
-    window.onscroll = function () { window.scrollTo(0, 0); return false;};
 }());
