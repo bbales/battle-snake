@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-23 11:40:08
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-23 17:30:55
+* @Last Modified time: 2015-02-23 18:31:29
 */
 var size = [window.width,window.height];
 
@@ -12,7 +12,6 @@ var size = [window.width,window.height];
     game.resetFlags = function(){
         game.flags.gameover = false;
         game.flags.tie = false;
-
         game.p1 = game.p2 = {x : 0, y : 0, len : 3, train : []};
     };
 
@@ -20,7 +19,11 @@ var size = [window.width,window.height];
         return Math.round(int/10)*10;
     };
 
-    game.addExplosion = function(color, max, x, y, points){
+    game.addExplosion = function(color, max, x, y, points, message){
+        if(typeof message === "undefined") {
+                message = undefined;
+        }
+
         var numAngles = 6 + Math.round(Math.random()*15);
         var angles = [];
         var sizes = [];
@@ -31,7 +34,7 @@ var size = [window.width,window.height];
             speed.push(2+Math.round(Math.random()*6));
         }
         console.log(angles);
-        game.explosions.push({color: color, max : max, x : x, y : y, current : 0, angles : angles, sizes : sizes, speed : speed, points : points});
+        game.explosions.push({color: color, max : max, x : x, y : y, current : 0, angles : angles, sizes : sizes, speed : speed, points : points, message : message});
     };
 
     game.drawExplosions = function(){
@@ -81,11 +84,15 @@ var size = [window.width,window.height];
             }
 
             // Text
-            completion = game.explosions[i].current/(game.explosions[i].max*0.7);
-            game.canvas.font = 'normal 15pt karma';
-            game.canvas.globalAlpha = 1-completion;
-            game.canvas.fillStyle = game.explosions[i].color;
-            if(1 - completion > 0) game.canvas.fillText('+'+game.explosions[i].points, origin[0] + 15, origin[1] - 15 - completion*10);
+            if(game.explosions[i].points !== undefined){
+                completion = game.explosions[i].current/(game.explosions[i].max*0.7);
+                game.canvas.font = 'normal 15pt karma';
+                game.canvas.globalAlpha = 1-completion;
+                game.canvas.fillStyle = game.explosions[i].color;
+                if(1 - completion > 0) game.canvas.fillText('+'+game.explosions[i].points, origin[0] + 15, origin[1] - 15 - completion*10);
+            }else if(game.explosions[i].message !== undefined){
+
+            }
 
 
             game.canvas.globalAlpha = 1;
@@ -111,6 +118,16 @@ var size = [window.width,window.height];
         }
         return copy;
     }
+
+    game.pause = function(t){
+        if(game.flags.gameover) return;
+        game.flags.paused = t;
+        if(t){
+            document.getElementsByClassName("paused")[0].style.display = "block";
+        }else{
+            document.getElementsByClassName("paused")[0].style.display = "none";
+        }
+    };
 
     window.addEventListener("resize",function(){
         document.getElementById("battlesnake").setAttribute("width",document.getElementById("battlesnake").offsetWidth);

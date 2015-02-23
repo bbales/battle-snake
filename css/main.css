@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-23 11:51:56
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-23 12:19:34
+* @Last Modified time: 2015-02-23 18:30:49
 */
 
 @font-face {
@@ -25,6 +25,9 @@ body{
     height:100vh;
     margin:0 0;
     padding: 0 0;
+    position:fixed;
+    top:0;
+    left:0;
 }
 
 .overlay{
@@ -46,14 +49,39 @@ body{
     background: -ms-radial-gradient(center, ellipse cover,  rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 1%,rgba(0,0,0,0.9) 36%,rgba(0,0,0,0.9) 100%); /* IE10+ */
     background: radial-gradient(ellipse at center,  rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 1%,rgba(0,0,0,0.9) 36%,rgba(0,0,0,0.9) 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99000000', endColorstr='#e6000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
+    font-family: karma;
+    color:white;
 }
 
 .gameover{
-    font-family: karma;
     font-size:7rem;
-    color:white;
     margin-top:30vh;
+}
+
+.paused{
+    font-family: karma;
+    color:white;
+    font-size:5rem;
+    text-align:center;
+    padding-top:34vh;
+    opacity:0.9;
+    width:100%;
+    height:100vh;
+    position:fixed;
+    display:none;
+    z-index:11;
+
+    background: -moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.6) 1%, rgba(0,0,0,0.9) 36%, rgba(0,0,0,0.9) 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,0.6)), color-stop(1%,rgba(0,0,0,0.6)), color-stop(36%,rgba(0,0,0,0.9)), color-stop(100%,rgba(0,0,0,0.9))); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover,  rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 1%,rgba(0,0,0,0.9) 36%,rgba(0,0,0,0.9) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover,  rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 1%,rgba(0,0,0,0.9) 36%,rgba(0,0,0,0.9) 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover,  rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 1%,rgba(0,0,0,0.9) 36%,rgba(0,0,0,0.9) 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center,  rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.6) 1%,rgba(0,0,0,0.9) 36%,rgba(0,0,0,0.9) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99000000', endColorstr='#e6000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.gameresult{
+    font-size:3rem;    
 }
 
 .hidden{
@@ -61,5 +89,5 @@ body{
 }
 
 .shown{
-    opacity:0.8;
+    opacity:0.9;
 }

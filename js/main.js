@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:45
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-23 17:17:48
+* @Last Modified time: 2015-02-23 18:31:43
 */
 
 
@@ -41,7 +41,24 @@
     };
 
     game.over = function(){
+        game.pause(false);
         document.getElementById("overlay").className = "overlay shown";
+        for(var i = 0; i < document.getElementsByClassName("gameresult").length; i++){
+            document.getElementsByClassName("gameresult")[i].className = (document.getElementsByClassName("gameresult")[i].className+"").replace("shown","hidden");
+        }
+
+        if(game.flags.tie === true){
+            document.getElementsByClassName("tie")[0].className = (document.getElementsByClassName("tie")[0].className+"").replace("hidden","shown");
+        }else{
+            switch(game.flags.result){
+                case P1LOSS:
+                    document.getElementsByClassName("p2win")[0].className = (document.getElementsByClassName("p2win")[0].className+"").replace("hidden","shown");
+                    break;
+                case P2LOSS:
+                    document.getElementsByClassName("p1win")[0].className = (document.getElementsByClassName("p1win")[0].className+"").replace("hidden","shown");
+                    break;
+            }
+        }
     };
 
     game.mainLoop = function(){
@@ -59,10 +76,8 @@
         }
         game.canvas.clearRect(0,0,game.width,game.height);
 
-        
-
         // Draw old
-        for(i in game.p2.train){
+        for(var i in game.p2.train){
             game.canvas.fillStyle = "rgba(225,80,0,"+(game.p2.len-i+Math.round(0.2*game.p2.len))/game.p2.len+")";
             game.canvas.fillRect(game.p2.train[i][0],game.p2.train[i][1],block,block);
         }
@@ -147,10 +162,10 @@
             game.p1.x += block;
         }
 
-        if(game.p1.x < 0) game.p1.x = game.width;
-        if(game.p1.x > game.width) game.p1.x = 0;
-        if(game.p1.y < 0) game.p1.y = game.height;
-        if(game.p1.y > game.height) game.p1.y = 0;
+        if(game.p1.x < 0) game.p1.x = game.width-block;
+        else if(game.p1.x >= game.width-block) game.p1.x = 0;
+        if(game.p1.y < 0) game.p1.y = game.height - block;
+        else if(game.p1.y > game.height - block) game.p1.y = 0;
 
         if(tempKeys.up){
             game.p2.dir = UP;
@@ -166,10 +181,10 @@
             game.p2.x += block;
         }
 
-        if(game.p2.x < 0) game.p2.x = game.width;
-        if(game.p2.x > game.width) game.p2.x = 0;
-        if(game.p2.y < 0) game.p2.y = game.height;
-        if(game.p2.y > game.height) game.p2.y = 0;
+        if(game.p2.x < 0) game.p2.x = game.width-block;
+        else if(game.p2.x > game.width-block) game.p2.x = 0;
+        if(game.p2.y < 0) game.p2.y = game.height-block;
+        else if(game.p2.y > game.height-block) game.p2.y = 0;
 
         // Check for collisions
         var collisions = 0;
@@ -202,21 +217,21 @@
 
         }
 
+        if(game.p1.x == game.p2.x && game.p1.y == game.p2.y){
+            console.log("TIE")
+            game.flags.tie = true;
+            game.flags.gameover = true;
+        }
         
         if(collisions > 1) game.flags.tie = true;
-        if(collisions >= 1){
+        if(collisions >= 1 || game.flags.tie){
             game.flags.gameover = true;
             game.over();
             return;
         }
 
-        if(game.p1.x == game.p2.x && game.p1.y == game.p2.y){
-            game.flags.tie = true;
-            game.flags.gameover = true;
-        }
-
         // Check for food
-        for(var i in game.food.a){
+        for(i in game.food.a){
             if(game.food.a[i][0] == game.p2.x && game.food.a[i][1] == game.p2.y){
                 game.p2.len += (game.food.a[i][2]+3)*2;
                 game.addExplosion(game.food.colors[game.food.a[i][2]],50+Math.round(Math.random()*60),game.food.a[i][0],game.food.a[i][1],(game.food.a[i][2]+3)*2);
@@ -277,7 +292,5 @@
         setTimeout(game.mainLoop,1000/game.frameRate);
     };
 
-    game.pause = function(t){
-        game.flags.paused = t;
-    };
+    
 }());

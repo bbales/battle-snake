@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:50
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-23 14:41:30
+* @Last Modified time: 2015-02-23 17:52:19
 */
 
 var game = {
@@ -11,6 +11,7 @@ var game = {
         gameover : false,
         paused : false,
         tie : false,
+        result : undefined,
     },
 
     keys : {
