@@ -2,12 +2,17 @@
 * @Author: bbales
 * @Date:   2015-02-23 11:51:56
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 12:14:53
+* @Last Modified time: 2015-02-24 16:33:18
 */
 
 @font-face {
     font-family: karma;
     src: url(karma_future.ttf);
+}
+
+@font-face {
+    font-family: pixel;
+    src: url(Pixel.ttf);
 }
 
 body{
@@ -65,12 +70,12 @@ body{
 .clickable{
     font-size: 2rem;
     color:white;
-    text-shadow:2px 2px 2px red;
+    text-shadow:2px 2px 2px #FF7899;
     cursor:pointer;
 }
 
 .clickable:hover{
-    text-shadow:2px 2px 2px #FF7899;
+    text-shadow:2px 2px 2px red;
 }
 
 .clickable:active{
@@ -112,4 +117,34 @@ body{
 
 .shown{
     opacity:0.9;
+}
+
+
+
+.scores{
+    position:fixed;
+    z-index:11;
+    bottom:0;
+    height:40px;
+    color:white;
+    opacity:0.8;
+    width:100%;
+    font-family:pixel;
+    font-size:0.8rem;
+}
+
+.score{
+    position:absolute;
+    bottom:5px;
+    width:150px;
+    text-shadow:1px 1px 2px #FF50B0;
+}
+
+.p1score{
+    left: 10px;
+}
+
+.p2score{
+    right: 10px;
+    text-align:right;
 }

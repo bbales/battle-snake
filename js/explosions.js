@@ -2,13 +2,13 @@
 * @Author: bbales
 * @Date:   2015-02-23 11:40:08
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 13:18:42
+* @Last Modified time: 2015-02-24 15:54:29
 */
 
 (function(){
     'use strict';
 
-    game.addExplosion = function(color, max, x, y, points, message){
+    game.addExplosion = function(color, max, x, y, points,font, message){
         if(typeof message === "undefined"){
             message = undefined;
         }
@@ -23,7 +23,7 @@
             speed.push(2+Math.round(Math.random()*6));
         }
         console.log(angles);
-        game.explosions.push({color: color, max : max, x : x, y : y, current : 0, angles : angles, sizes : sizes, speed : speed, points : points, message : message});
+        game.explosions.push({color: color, max : max, x : x, y : y,font : font, current : 0, angles : angles, sizes : sizes, speed : speed, points : points, message : message});
     };
 
     game.drawExplosions = function(){
@@ -74,7 +74,7 @@
             // Text
             if(game.explosions[i].points !== undefined){
                 completion = game.explosions[i].current/(game.explosions[i].max*0.7);
-                game.canvas.font = 'normal 15pt karma';
+                game.canvas.font = 'normal '+game.explosions[i].font+'pt karma';
                 game.canvas.globalAlpha = 1-completion;
                 game.canvas.fillStyle = game.explosions[i].color;
                 if(1 - completion > 0) game.canvas.fillText('+'+game.explosions[i].points, origin[0] + 15, origin[1] - 15 - completion*10);

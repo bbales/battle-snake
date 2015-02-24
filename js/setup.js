@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:50
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 13:45:53
+* @Last Modified time: 2015-02-24 16:41:12
 */
 
 // constants
@@ -38,7 +38,9 @@ var game = {
     canvas : null,
     food : {
         max : 10,
+        superMax : 1,
         a : [],
+        b : [],
         colors : ["rgba(255,252,99,1)",
                   "rgba(255,216,99,1)",
                   "rgba(255,176,99,1)",
@@ -57,7 +59,8 @@ var game = {
         x : 200,
         y : 200,
         len : 3,
-        train : []
+        train : [],
+        wins : 0
     },
 
     p2 : {
@@ -66,7 +69,8 @@ var game = {
         x : 500,
         y : 200,
         len : 3,
-        train : []
+        train : [],
+        wins : 0
     }
 };
 

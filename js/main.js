@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:45
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 13:51:36
+* @Last Modified time: 2015-02-24 16:37:54
 */
 
 
@@ -44,10 +44,12 @@
         }else{
             switch(game.flags.result){
                 case P1LOSS:
+                    game.snakes.addWin('p2');
                     document.getElementsByClassName("p2win")[0].style.display = "block";
                     break;
                 case P2LOSS:
-                document.getElementsByClassName("p1win")[0].style.display = "block";
+                    game.snakes.addWin('p2');
+                    document.getElementsByClassName("p1win")[0].style.display = "block";
                     break;
             }
         }
