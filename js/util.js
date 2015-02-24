@@ -2,130 +2,103 @@
 * @Author: bbales
 * @Date:   2015-02-23 11:40:08
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-23 18:31:29
+* @Last Modified time: 2015-02-24 13:18:34
 */
 var size = [window.width,window.height];
 
 (function(){
     'use strict';
 
-    game.resetFlags = function(){
+    game.reset = function(){
         game.flags.gameover = false;
         game.flags.tie = false;
-        game.p1 = game.p2 = {x : 0, y : 0, len : 3, train : []};
+
+        game.p1.len = 3;
+        game.p2.len = 3;
+        game.p1.train = [];
+        game.p2.train = [];
+
+        game.food.a = [];
     };
 
     game.quantize = function(int){
         return Math.round(int/10)*10;
     };
 
-    game.addExplosion = function(color, max, x, y, points, message){
-        if(typeof message === "undefined") {
-                message = undefined;
+    game.showOverlay = function(set){
+        if(set){
+            document.getElementsByTagName("body")[0].style.cursor = "default";
+            document.getElementById("overlay").className = "overlay shown";
+        }else{
+            document.getElementsByTagName("body")[0].style.cursor = "none";
+            document.getElementById("overlay").className = "overlay hidden";
         }
-
-        var numAngles = 6 + Math.round(Math.random()*15);
-        var angles = [];
-        var sizes = [];
-        var speed = [];
-        for(var i = 0; i < numAngles; i++){
-            angles.push(Math.round(Math.random()*360));
-            sizes.push(4+Math.round(Math.random()*30));
-            speed.push(2+Math.round(Math.random()*6));
-        }
-        console.log(angles);
-        game.explosions.push({color: color, max : max, x : x, y : y, current : 0, angles : angles, sizes : sizes, speed : speed, points : points, message : message});
     };
 
-    game.drawExplosions = function(){
-        var j = 0;
-        var toRemove = [];
-        var origin,move,line,shim,tempAngles,max;
-        var RAD = 0.0174532925;
-        var xdir,ydir;
-        var completion;
-        for(var i in game.explosions){
-            tempAngles = clone(game.explosions[i].angles);
-            origin = [game.explosions[i].x,game.explosions[i].y];
+    game.sizeBoard = function(){
+        document.getElementById("battlesnake").setAttribute("width",document.getElementById("battlesnake").offsetWidth);
+        document.getElementById("battlesnake").setAttribute("height",document.getElementById("battlesnake").offsetHeight);
+        game.width = game.quantize(document.getElementById("battlesnake").getAttribute("width"));
+        game.height = game.quantize(document.getElementById("battlesnake").getAttribute("height"));
+    };
 
-            for(j in game.explosions[i].angles){
-                if(game.explosions[i].angles[j] < 90){
-                    ydir = xdir = 1;
-                }else if(game.explosions[i].angles[j] < 180){
-                    tempAngles[j]-=90;
-                    xdir = -1;
-                    ydir = 1;
-                }else if(game.explosions[i].angles[j] < 270){
-                    tempAngles[j]-=180;
-                    ydir = xdir = -1;
-                }else{
-                    tempAngles[j]-=270;
-                    ydir = -1;
-                    xdir = 1;
-                }
-                shim = Math.easeOutQuad(game.explosions[i].current,2,200,80) * game.explosions[i].speed[j];
-                move = [origin[0] + xdir*shim*Math.cos(tempAngles[j]*RAD),
-                        origin[1] + ydir*shim*Math.sin(tempAngles[j]*RAD)];
-                max = [origin[0] + xdir*game.explosions[i].max*(1+game.explosions[i].sizes[j]/23)*Math.cos(tempAngles[j]*RAD),
-                       origin[1] + ydir*game.explosions[i].max*(1+game.explosions[i].sizes[j]/23)*Math.sin(tempAngles[j]*RAD)];
-                line = [move[0] + xdir*game.explosions[i].sizes[j]*Math.cos(tempAngles[j]*RAD),
-                        move[1] + ydir*game.explosions[i].sizes[j]*Math.sin(tempAngles[j]*RAD)];
-                if((line[0] > max[0] && xdir === 1) || (line[0] < max[0] && xdir === -1)) line = clone(max);
-
-                game.canvas.beginPath();
-                game.canvas.shadowColor = "#D6D6D6";
-                game.canvas.shadowBlur = 13;
-                game.canvas.moveTo(move[0],move[1]);
-                if((line[0] - move[0] < 0 && xdir === -1) || (line[0] - move[0] > 0 && xdir === 1)) game.canvas.lineTo(line[0],line[1]);
-                game.canvas.lineWidth = 2;
-                game.canvas.strokeStyle = game.explosions[i].color;
-                game.canvas.fill();
-                game.canvas.stroke();
+    game.generateFood = function(){
+        // Check for food
+        for(var i in game.food.a){
+            if(game.food.a[i][0] == game.p2.x && game.food.a[i][1] == game.p2.y){
+                game.p2.len += (game.food.a[i][2]+3)*2;
+                game.addExplosion(game.food.colors[game.food.a[i][2]],50+Math.round(Math.random()*60),game.food.a[i][0],game.food.a[i][1],(game.food.a[i][2]+3)*2);
+                game.food.a.splice(i,1);
+                break;
             }
 
-            // Text
-            if(game.explosions[i].points !== undefined){
-                completion = game.explosions[i].current/(game.explosions[i].max*0.7);
-                game.canvas.font = 'normal 15pt karma';
-                game.canvas.globalAlpha = 1-completion;
-                game.canvas.fillStyle = game.explosions[i].color;
-                if(1 - completion > 0) game.canvas.fillText('+'+game.explosions[i].points, origin[0] + 15, origin[1] - 15 - completion*10);
-            }else if(game.explosions[i].message !== undefined){
-
+            if(game.food.a[i][0] == game.p1.x && game.food.a[i][1] == game.p1.y){
+                game.p1.len += (game.food.a[i][2]+3)*2;
+                game.addExplosion(game.food.colors[game.food.a[i][2]],50+Math.round(Math.random()*60),game.food.a[i][0],game.food.a[i][1],(game.food.a[i][2]+3)*2);
+                game.food.a.splice(i,1);
+                break;
             }
-
-
-            game.canvas.globalAlpha = 1;
-
-            game.explosions[i].current++;
-            if(game.explosions[i].current > game.explosions[i].max) toRemove.push(i);
         }
-        
+
+
+        // Generate food
+        if(game.food.a.length < game.food.max && Math.round(Math.random()*20) == Math.round(Math.random()*55)){
+            game.food.a.push([game.quantize(Math.random()*game.width),game.quantize(Math.random()*game.height),Math.round(Math.random()*4)]);
+        }
+
+        // Food glow
+        if(game.shadow.dir){
+            game.shadow.val += 0.07;
+            if(game.shadow.val > 1) game.shadow.dir = false;
+        }else{
+            game.shadow.val -= 0.07;
+            if(game.shadow.val < 0) game.shadow.dir = true;
+        }
+
+        // Draw food
+        for(i in game.food.a){
+            game.canvas.shadowColor = game.food.colors[game.food.a[i][2]];
+            game.canvas.shadowBlur = game.shadow.val * 18;
+            game.canvas.fillStyle = game.food.colors[game.food.a[i][2]];
+            game.canvas.beginPath();
+            game.canvas.arc(game.food.a[i][0]+game.block/2,game.food.a[i][1]+game.block/2, game.block/2, 0, 2 * Math.PI, false);
+            game.canvas.fill();
+        }
+
         game.canvas.shadowColor = '#999';
         game.canvas.shadowBlur = 0;
         game.canvas.fill();
-
-        for(i in toRemove){
-            game.explosions.splice(toRemove[i],1);
-        }
     };
-
-    function clone(obj) {
-        if (null === obj || "object" !== typeof obj) return obj;
-        var copy = obj.constructor();
-        for (var attr in obj) {
-            if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
-        }
-        return copy;
-    }
 
     game.pause = function(t){
         if(game.flags.gameover) return;
         game.flags.paused = t;
         if(t){
             document.getElementsByClassName("paused")[0].style.display = "block";
+            document.getElementsByTagName("body")[0].style.cursor = "default";
         }else{
             document.getElementsByClassName("paused")[0].style.display = "none";
+            document.getElementsByTagName("body")[0].style.cursor = "none";
         }
     };
 

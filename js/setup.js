@@ -2,10 +2,20 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:50
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-23 17:52:19
+* @Last Modified time: 2015-02-24 13:45:53
 */
 
+// constants
+var P1LOSS = 1;
+var P2LOSS = 2;
+var UP = 1;
+var DOWN = 2;
+var LEFT = 3;
+var RIGHT = 4;
+
+// Main config
 var game = {
+    block : 10,
     frameRate : 26,
     flags : {
         gameover : false,
@@ -42,6 +52,7 @@ var game = {
     },
 
     p1 : {
+        color: "0,150,255",
         dir : 1,
         x : 200,
         y : 200,
@@ -50,6 +61,8 @@ var game = {
     },
 
     p2 : {
+        color : "225,80,0",
+        dir : 1,
         x : 500,
         y : 200,
         len : 3,

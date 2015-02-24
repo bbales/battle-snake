@@ -10,10 +10,11 @@
         <div id="overlay" class="overlay hidden">
             <div class="gameover">GAME OVER</div>
             <div class="winner">
-                <div class="gameresult tie hidden">It's A Tie!</div>
-                <div class="gameresult p1win hidden">Player 1 Wins!</div>
-                <div class="gameresult p2win hidden">Player 2 Wins!</div>
+                <div class="gameresult tie">It's A Tie!</div>
+                <div class="gameresult p1win">Player 1 Wins!</div>
+                <div class="gameresult p2win">Player 2 Wins!</div>
             </div>
+            <div class="again"><span class="clickable" onClick="game.start()">PLAY AGAIN</span></div>
         </div>
     
         <div class="paused">
@@ -28,6 +29,8 @@
         <script src="js/animationfunctions.js"></script>
         <script src="js/keyboard.js"></script>
         <script src="js/util.js"></script>
+        <script src="js/explosions.js"></script>
+        <script src="js/snakes.js"></script>
         <script src="js/main.js"></script>
     </body>
 </html>

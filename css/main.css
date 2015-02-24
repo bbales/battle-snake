@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-23 11:51:56
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-23 18:30:49
+* @Last Modified time: 2015-02-24 12:14:53
 */
 
 @font-face {
@@ -37,10 +37,10 @@ body{
     z-index:10;
     text-align:center;
     
-    -webkit-transition: opacity 1.5s cubic-bezier(0.95, 0.05, 0.795, 0.035);
-    -moz-transition: opacity 1.5s cubic-bezier(0.95, 0.05, 0.795, 0.035);
-    -o-transition: opacity 1.5s cubic-bezier(0.95, 0.05, 0.795, 0.035);
-    transition: opacity 1.5s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    -webkit-transition: opacity 0.5s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    -moz-transition: opacity 0.5s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    -o-transition: opacity 0.5s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+    transition: opacity 0.5s cubic-bezier(0.95, 0.05, 0.795, 0.035);
 
     background: -moz-radial-gradient(center, ellipse cover,  rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.6) 1%, rgba(0,0,0,0.9) 36%, rgba(0,0,0,0.9) 100%); /* FF3.6+ */
     background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,0.6)), color-stop(1%,rgba(0,0,0,0.6)), color-stop(36%,rgba(0,0,0,0.9)), color-stop(100%,rgba(0,0,0,0.9))); /* Chrome,Safari4+ */
@@ -56,6 +56,26 @@ body{
 .gameover{
     font-size:7rem;
     margin-top:30vh;
+}
+
+.again{
+    font-size: 2rem;
+}
+
+.clickable{
+    font-size: 2rem;
+    color:white;
+    text-shadow:2px 2px 2px red;
+    cursor:pointer;
+}
+
+.clickable:hover{
+    text-shadow:2px 2px 2px #FF7899;
+}
+
+.clickable:active{
+    color:#C9C9C9;
+    text-shadow:2px 2px 2px #FF7899;
 }
 
 .paused{
@@ -82,6 +102,8 @@ body{
 
 .gameresult{
     font-size:3rem;    
+    margin-top:10vh;
+    margin-bottom:10vh;
 }
 
 .hidden{
