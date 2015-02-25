@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-24 13:41:01
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 20:22:58
+* @Last Modified time: 2015-02-24 20:44:53
 */
 
 (function(){
@@ -66,10 +66,24 @@
                     tracers[0] = game.bullets.a[i].x - game.block;
                     break;
             }
+            
+            if((game.bullets.a[i].x == game.p2.x && game.bullets.a[i].y == game.p2.y) || (tracers[0] == game.p2.x && tracers[1] == game.p2.y)){
+                console.log('head')
+                game.flags.result = P2LOSS;
+                game.flags.gameover = true;
+                break;
+            }
+
+            if((game.bullets.a[i].x == game.p1.x && game.bullets.a[i].y == game.p1.y) || (tracers[0] == game.p1.x && tracers[1] == game.p1.y)){
+                console.log('head')
+                game.flags.result = P1LOSS;
+                game.flags.gameover = true;
+                break;
+            }
 
             for(j in game.p1.train){
                 if((game.bullets.a[i].x == game.p1.train[j][0] && game.bullets.a[i].y == game.p1.train[j][1]) || (tracers[0] == game.p1.train[j][0] && tracers[1] == game.p1.train[j][1])){
-                    game.addExplosion("rgba("+game.p1.color+",1)",90,game.bullets.a[i].x,game.bullets.a[i].y,0,20,"SLICE");
+                    game.addExplosion("rgba("+game.p1.color+",1)",90,game.bullets.a[i].x,game.bullets.a[i].y,0,20,"BANGIN' EM");
                     game.bullets.cutTrain('p1',j);
                     toRemove.push(i);
                 }
@@ -77,14 +91,18 @@
 
             for(j in game.p2.train){
                 if((game.bullets.a[i].x == game.p2.train[j][0] && game.bullets.a[i].y == game.p2.train[j][1]) || (tracers[0] == game.p2.train[j][0] && tracers[1] == game.p2.train[j][1])){
-                    game.addExplosion("rgba("+game.p2.color+",1)",90,game.bullets.a[i].x,game.bullets.a[i].y,0,20,"SLICE");
+                    game.addExplosion("rgba("+game.p2.color+",1)",90,game.bullets.a[i].x,game.bullets.a[i].y,0,20,"BANGIN' EM");
                     game.bullets.cutTrain('p2',j);
                     toRemove.push(i);
                 }
             }
 
+
+            // Bullets out of bounds
+            if(game.bullets.a[i].x < 0 || game.bullets.a[i].x > game.width || game.bullets.a[i].y > game.height || game.bullets.a[i].y < 0) toRemove.push(i);
         }
-        
+
+        // Remove bullets        
         for(i in toRemove){
             game.bullets.a.splice(toRemove[i],1);
         }

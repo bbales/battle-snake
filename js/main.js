@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:45
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 19:09:47
+* @Last Modified time: 2015-02-24 20:48:51
 */
 
 
@@ -127,7 +127,7 @@
         }
         
         if(collisions > 1) game.flags.tie = true;
-        if(collisions >= 1 || game.flags.tie){
+        if(collisions >= 1 || game.flags.tie || game.flags.gameover){
             game.flags.gameover = true;
             game.over();
             return;
