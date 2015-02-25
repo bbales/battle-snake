@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-23 11:51:56
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 16:33:18
+* @Last Modified time: 2015-02-24 17:43:59
 */
 
 @font-face {
@@ -127,7 +127,7 @@ body{
     bottom:0;
     height:40px;
     color:white;
-    opacity:0.8;
+    opacity:0.9;
     width:100%;
     font-family:pixel;
     font-size:0.8rem;

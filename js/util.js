@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-23 11:40:08
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 16:34:53
+* @Last Modified time: 2015-02-24 20:26:08
 */
 var size = [window.width,window.height];
 
@@ -19,6 +19,8 @@ var size = [window.width,window.height];
         game.p2.train = [];
 
         game.food.a = [];
+        game.bullets.a = [];
+        game.explosions = [];
 
         game.snakes.addPoints('p1',0);
         game.snakes.addPoints('p2',0);

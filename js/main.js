@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:45
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 16:37:54
+* @Last Modified time: 2015-02-24 19:09:47
 */
 
 
@@ -82,6 +82,9 @@
 
         // Draw food
         game.generateFood();
+
+        // Bullets
+        game.bullets.generate();
         
         // Draw any explosions
         game.drawExplosions();

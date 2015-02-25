@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:41
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 13:51:39
+* @Last Modified time: 2015-02-24 20:25:17
 */
 
 (function(){
@@ -60,13 +60,13 @@
         if(game.lastkeys !== undefined){
             if(game.p1.dir === UP && tempKeys.s){tempKeys.s = false; tempKeys.w = true;}
             else if(game.p1.dir === DOWN && tempKeys.w){tempKeys.w = false; tempKeys.s = true;}
-            else if(game.p1.dir === RIGHT && tempKeys.d){tempKeys.d = false; tempKeys.a = true;}
-            else if(game.p1.dir === LEFT && tempKeys.a){tempKeys.a = false; tempKeys.d = true;}
+            else if(game.p1.dir === LEFT && tempKeys.d){tempKeys.d = false; tempKeys.a = true;}
+            else if(game.p1.dir === RIGHT && tempKeys.a){tempKeys.a = false; tempKeys.d = true;}
 
             if(game.p2.dir === UP && tempKeys.down){tempKeys.down = false; tempKeys.up = true;}
             else if(game.p2.dir === DOWN && tempKeys.up){tempKeys.up = false; tempKeys.down = true;}
-            else if(game.p2.dir === RIGHT && tempKeys.right){tempKeys.right = false; tempKeys.left = true;}
-            else if(game.p2.dir === LEFT && tempKeys.left){tempKeys.left = false; tempKeys.right = true;}
+            else if(game.p2.dir === LEFT && tempKeys.right){tempKeys.right = false; tempKeys.left = true;}
+            else if(game.p2.dir === RIGHT && tempKeys.left){tempKeys.left = false; tempKeys.right = true;}
         }
 
         // Set last keys
@@ -80,10 +80,10 @@
             game.p1.dir = DOWN;
             game.p1.y += game.block;
         }else if(tempKeys.a){
-            game.p1.dir = RIGHT;
+            game.p1.dir = LEFT;
             game.p1.x -= game.block;
         }else if(tempKeys.d){
-            game.p1.dir = LEFT;
+            game.p1.dir = RIGHT;
             game.p1.x += game.block;
         }
 
@@ -94,10 +94,10 @@
             game.p2.dir = DOWN;
             game.p2.y += game.block;
         }else if(tempKeys.left){
-            game.p2.dir = RIGHT;
+            game.p2.dir = LEFT;
             game.p2.x -= game.block;
         }else if(tempKeys.right){
-            game.p2.dir = LEFT;
+            game.p2.dir = RIGHT;
             game.p2.x += game.block;
         }
 
@@ -111,6 +111,17 @@
         else if(game.p2.x > game.width-game.block) game.p2.x = 0;
         if(game.p2.y < 0) game.p2.y = game.height-game.block;
         else if(game.p2.y > game.height-game.block) game.p2.y = 0;
+
+        // Bullets
+        if(tempKeys.fire1 === 1){
+            game.bullets.addBullet("p1");
+            game.keys.fire1 = 2;
+        }
+
+        if(tempKeys.fire2 === 1){
+            game.bullets.addBullet("p2");
+            game.keys.fire2 = 2;
+        }
     };
 
     function getKeyDown(e){
@@ -119,42 +130,67 @@
             return game.pause(!game.flags.paused);
         }
 
-        if([87,83,65,68].indexOf(e.which) != -1){
+        if(game.p1.controls.slice(0,4).indexOf(e.which) != -1){
             game.keys.w = game.keys.s = game.keys.a = game.keys.d = false;
         }
 
-        if([38,40,37,39].indexOf(e.which) != -1){
+        if(game.p2.controls.slice(0,4).indexOf(e.which) != -1){
             game.keys.up = game.keys.down = game.keys.left = game.keys.right = false;
         }
 
         switch(e.which){
-            case 87:
+            case game.p1.controls[0]:
                 game.keys.w = true;
                 break;
-            case 83:
+            case game.p1.controls[1]:
                 game.keys.s = true;
                 break;
-            case 65:
+            case game.p1.controls[2]:
                 game.keys.a = true;
                 break;
-            case 68:
+            case game.p1.controls[3]:
                 game.keys.d = true;
                 break;
-            case 38:
+            case game.p2.controls[0]:
                 game.keys.up = true;
                 break;
-            case 40:
+            case game.p2.controls[1]:
                 game.keys.down = true;
                 break;
-            case 37:
+            case game.p2.controls[2]:
                 game.keys.left = true;
                 break;
-            case 39:
+            case game.p2.controls[3]:
                 game.keys.right = true;
+                break;
+        }
+
+        switch(e.which){
+            case game.p1.controls[4]:
+                if(game.keys.fire1 === 0) game.keys.fire1 = 1;
+                break;
+            case game.p2.controls[4]:
+                if(game.keys.fire2 === 0) game.keys.fire2 = 1;
                 break;
         }
     }
 
+    function getKeyUp(e){
+        switch(e.which){
+            case game.p1.controls[4]:
+                game.keys.fire1 = 0;
+                break;
+            case game.p2.controls[4]:
+                game.keys.fire2 = 0;
+                break;
+        }
+
+        if(e.which === 32 && game.flags.gameover){
+            game.start();
+        }
+    }
+
     window.addEventListener("keydown",getKeyDown,false);
+    window.addEventListener("keyup",getKeyUp,false);
 
 }());

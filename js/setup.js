@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:50
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 16:41:12
+* @Last Modified time: 2015-02-24 18:51:55
 */
 
 // constants
@@ -23,7 +23,6 @@ var game = {
         tie : false,
         result : undefined,
     },
-
     keys : {
         w : false,
         s : false,
@@ -33,6 +32,9 @@ var game = {
         down : false,
         left : false,
         right : false,
+
+        fire1 : 0,
+        fire2 : 0
     },
     lastkeys : undefined,
     canvas : null,
@@ -47,6 +49,9 @@ var game = {
                   "rgba(255,135,99,1)",
                   "rgba(255,95,99,1)"],
     },
+    bullets : {
+        a : [],
+    },
     explosions : [],
     shadow : {
         dir : true,
@@ -54,23 +59,26 @@ var game = {
     },
 
     p1 : {
+        // UP DOWN LEFT RIGHT FIRE
+        controls : [87,83,65,68,32],
         color: "0,150,255",
         dir : 1,
         x : 200,
         y : 200,
         len : 3,
         train : [],
-        wins : 0
+        wins : 0,
     },
 
     p2 : {
+        controls : [38,40,37,39,13],
         color : "225,80,0",
         dir : 1,
         x : 500,
         y : 200,
         len : 3,
         train : [],
-        wins : 0
+        wins : 0,
     }
 };
 

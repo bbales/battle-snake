@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-23 11:40:08
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 15:54:29
+* @Last Modified time: 2015-02-24 19:48:59
 */
 
 (function(){
@@ -72,14 +72,18 @@
             }
 
             // Text
-            if(game.explosions[i].points !== undefined){
+            if(game.explosions[i].message === undefined){
                 completion = game.explosions[i].current/(game.explosions[i].max*0.7);
                 game.canvas.font = 'normal '+game.explosions[i].font+'pt karma';
                 game.canvas.globalAlpha = 1-completion;
                 game.canvas.fillStyle = game.explosions[i].color;
                 if(1 - completion > 0) game.canvas.fillText('+'+game.explosions[i].points, origin[0] + 15, origin[1] - 15 - completion*10);
             }else if(game.explosions[i].message !== undefined){
-
+                completion = game.explosions[i].current/(game.explosions[i].max*0.7);
+                game.canvas.font = 'normal '+game.explosions[i].font+'pt karma';
+                game.canvas.globalAlpha = 1-completion;
+                game.canvas.fillStyle = game.explosions[i].color;
+                if(1 - completion > 0) game.canvas.fillText(game.explosions[i].message, origin[0] + 15, origin[1] - 15 - completion*10);
             }
             
             game.canvas.globalAlpha = 1;
