@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:50
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 18:51:55
+* @Last Modified time: 2015-02-25 14:03:41
 */
 
 // constants
@@ -62,6 +62,7 @@ var game = {
         // UP DOWN LEFT RIGHT FIRE
         controls : [87,83,65,68,32],
         color: "0,150,255",
+        bullets : 2,
         dir : 1,
         x : 200,
         y : 200,
@@ -73,6 +74,7 @@ var game = {
     p2 : {
         controls : [38,40,37,39,13],
         color : "225,80,0",
+        bullets : 2,
         dir : 1,
         x : 500,
         y : 200,

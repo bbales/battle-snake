@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:41
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 20:25:17
+* @Last Modified time: 2015-02-25 14:04:00
 */
 
 (function(){
@@ -113,12 +113,12 @@
         else if(game.p2.y > game.height-game.block) game.p2.y = 0;
 
         // Bullets
-        if(tempKeys.fire1 === 1){
+        if(tempKeys.fire1 === 1 && game.p1.bullets > 0){
             game.bullets.addBullet("p1");
             game.keys.fire1 = 2;
         }
 
-        if(tempKeys.fire2 === 1){
+        if(tempKeys.fire2 === 1 && game.p2.bullets > 0){
             game.bullets.addBullet("p2");
             game.keys.fire2 = 2;
         }
