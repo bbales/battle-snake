@@ -2,8 +2,11 @@
 * @Author: bbales
 * @Date:   2015-02-23 11:51:56
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 17:43:59
+* @Last Modified time: 2015-03-01 19:46:57
 */
+
+.preload1 { background: url(../img/bullets.png) no-repeat -9999px -9999px; }
+.preload2 { background: url(../img/shield.png) no-repeat -9999px -9999px; }
 
 @font-face {
     font-family: karma;

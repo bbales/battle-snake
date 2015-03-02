@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:45
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 20:48:51
+* @Last Modified time: 2015-03-01 19:55:49
 */
 
 
@@ -71,6 +71,8 @@
             return;
         }
 
+        game.frame++;
+        
         // Reset canvas
         game.canvas.clearRect(0,0,game.width+game.block,game.height+game.block);
 

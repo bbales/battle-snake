@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-23 11:40:08
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 19:48:59
+* @Last Modified time: 2015-03-01 18:35:40
 */
 
 (function(){
@@ -22,7 +22,6 @@
             sizes.push(4+Math.round(Math.random()*30));
             speed.push(2+Math.round(Math.random()*6));
         }
-        console.log(angles);
         game.explosions.push({color: color, max : max, x : x, y : y,font : font, current : 0, angles : angles, sizes : sizes, speed : speed, points : points, message : message});
     };
 

@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-22 20:57:50
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-25 14:03:41
+* @Last Modified time: 2015-03-01 20:26:22
 */
 
 // constants
@@ -17,6 +17,7 @@ var RIGHT = 4;
 var game = {
     block : 10,
     frameRate : 26,
+    frame : 0,
     flags : {
         gameover : false,
         paused : false,
@@ -50,7 +51,27 @@ var game = {
                   "rgba(255,95,99,1)"],
     },
     bullets : {
+        frequency : 6,
         a : [],
+        b : [],
+        max : 2,
+    },
+    armour : {
+        p1 : {
+            enabled : false,
+            shown : true,
+            counter : 0,
+            timeout : 0
+        },
+        p2 : {
+            enabled : false,
+            shown : true,
+            counter : 0,
+            timeout : 0
+        },
+        a : [],
+        frequency : 20,
+        seconds : 15,
     },
     explosions : [],
     shadow : {
@@ -62,7 +83,7 @@ var game = {
         // UP DOWN LEFT RIGHT FIRE
         controls : [87,83,65,68,32],
         color: "0,150,255",
-        bullets : 2,
+        bullets : 0,
         dir : 1,
         x : 200,
         y : 200,
@@ -74,7 +95,7 @@ var game = {
     p2 : {
         controls : [38,40,37,39,13],
         color : "225,80,0",
-        bullets : 2,
+        bullets : 0,
         dir : 1,
         x : 500,
         y : 200,

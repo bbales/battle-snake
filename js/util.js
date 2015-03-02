@@ -2,7 +2,7 @@
 * @Author: bbales
 * @Date:   2015-02-23 11:40:08
 * @Last Modified by:   bbales
-* @Last Modified time: 2015-02-24 20:26:08
+* @Last Modified time: 2015-03-01 20:44:18
 */
 var size = [window.width,window.height];
 
@@ -17,6 +17,8 @@ var size = [window.width,window.height];
         game.p2.len = 3;
         game.p1.train = [];
         game.p2.train = [];
+        game.p1.bullets = 0;
+        game.p2.bullets = 0;
 
         game.food.a = [];
         game.bullets.a = [];
